@@ -8,6 +8,8 @@ class Menu extends Component {
         this.state = {
             selectedDish: null
         };
+        
+        console.log('Menu constr is invoked');
     }
 
     onDishSelect(dish){
@@ -32,6 +34,10 @@ class Menu extends Component {
         }
     }
 
+    componentDidMount(){
+        console.log('Menu mounted is invoked');
+    }
+
     render(){
         const menu = this.props.dishes.map((dish) =>{
             return(
@@ -45,7 +51,7 @@ class Menu extends Component {
                 </div>
             )
         });
-
+        console.log('Menu render is invoked');
         return (
             <div className="container">
                 <div className="row">
