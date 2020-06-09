@@ -1,0 +1,5 @@
+npm install -g npm@latest
+npm install node
+npm install -g yarn
+yarn cache clean
+npx create-react-app my-app
