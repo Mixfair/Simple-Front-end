@@ -1,19 +1,19 @@
-import React, {Component} from 'react';
-import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
-import { ListGroup, ListGroupItem  } from 'reactstrap';
+import React from 'react';
+import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
 
-class Dishdetail extends Component{
-    renderDish(dish){
-        console.log(dish)
+    function RenderDish({dish}){
+
         if (dish != null){
             return(
-                <Card>
-                    <CardImg width="100%" src={dish.image} alt={dish.name}/>
-                    <CardBody>
-                        <CardTitle>{dish.name}</CardTitle>
-                        <CardText>{dish.description}</CardText>
-                    </CardBody>
-                </Card>
+                <div className="col-12 col-md-5 m-1">
+                    <Card>
+                        <CardImg width="100%" src={dish.image} alt={dish.name}/>
+                        <CardBody>
+                            <CardTitle>{dish.name}</CardTitle>
+                            <CardText>{dish.description}</CardText>
+                        </CardBody>
+                    </Card>
+                </div>
                 
             );
         } else {
@@ -23,8 +23,8 @@ class Dishdetail extends Component{
         }
     }
     
-    readComments(dish){
-         const comments = dish.comments.map((cmt) =>{
+    function RenderComments({cmts}){
+         const comments = cmts.map((cmt) =>{
          const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
                 "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
             ];
@@ -33,7 +33,7 @@ class Dishdetail extends Component{
             
             return(
                 
-                <li as="ul" key={cmt.id}>
+                <li key={cmt.id}>
                     <p>{cmt.comment}</p>
                     <p> -- {cmt.author}, {monthNames[date.getMonth()]} {date.getDate()}, {date.getFullYear()} </p>
                 </li>
@@ -43,32 +43,29 @@ class Dishdetail extends Component{
         });
 
         return(
-            <ul className="list-unstyled">
-                {comments}
-            </ul>
+            <div className="col-12 col-md-5 m-1">
+                <h4>Comments</h4>
+                <ul className="list-unstyled">
+                    {comments}
+                </ul>
+            </div>    
         )
         
     }
 
-    render(){
-        if (this.props.dish ==null) return <div></div>
-
+    const DishDetail = (props) => {
+        if (props.dish == null) return <div></div>
         return(
+            
             <div className="container">
                 <div className="row">
-                    <div className="col-12 col-md-5 m-1">
-                        {this.renderDish(this.props.dish)}
-                    </div>
-                    <div className="col-12 col-md-5 m-1">
-                        
-                        <h4>Comments</h4>
-                        {this.readComments(this.props.dish)}
-                    </div>
+                        <RenderDish dish={props.dish} />
+                        <RenderComments cmts={props.dish.comments} />
                 </div>
-                
             </div>
+                
         )
     }
-}
 
-export default Dishdetail;
+
+export default DishDetail;
